@@ -15,9 +15,12 @@ r = praw.Reddit(user_agent=Config.user_agent)
 i_client = imgurpython.ImgurClient(Config.imgur_id, Config.imgur_secret)
 imgur_api = 'https://api.imgur.com/3/' #http://api.imgur.com/
 
-def DownloadImage(URL, path, name,[number]):
+def FileType(URL):
+    return URL.rsplit('.')
+
+def DownloadImage(URL, path, name[,number]):
     image = urllib.urlopen(URL.link)
-    file_path = ['//'].join(os.getcwd(), path, name + number)
+    file_path = ['//'].join(os.getcwd(), path, name + number + FileType(URL))
     image_data = image.read()
     downloaded_image = file(file_path, 'wb')
     downloaded_image.write(image_data)
