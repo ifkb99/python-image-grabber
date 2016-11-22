@@ -8,4 +8,5 @@ todo:
 - add support to use from command line
 - add support for gui (easygui?)
 - make sure imgur albums actually work
+- add classes to clean up code
 - ***finish the base code***
