@@ -3,7 +3,7 @@
 #work with requests library and shutil
 
 import praw
-import urllib
+import urllib.request
 import Config
 import os, sys
 import imgurpython
@@ -19,13 +19,14 @@ imgur_api = 'https://api.imgur.com/'#3/' #http://api.imgur.com/
 
 default_path = '\\pics\\'
 default_sub = 'awwnime'
+default_search = 'kuroneko'
 
 def FileType(URL):
     return URL.rsplit('.')
 
 def DownloadImage(URL, path, name, *number):
-    image = urllib.urlopen(URL.link)
-    file_path = ['\\'].join(os.getcwd(), path, name + number + FileType(URL))
+    image = urllib.request.urlopen(URL)
+    file_path = '\\'.join(str(os.getcwd(), path, name + number + FileType(URL)))
     image_data = image.read()
     downloaded_image = file(file_path, 'wb')
     downloaded_image.write(image_data)
@@ -50,11 +51,12 @@ def AlbumOrSingle(URL, name, path):
         else:
             DownloadImage(URL, path, name)
     except:
-        sys.stdout.write('Failed', traceback.print_exception)
+        sys.stdout.write('Failed')
+        traceback.print_exc()
         return False
 
 def main():
-    parser.add_argument('--query', type=str, default='NULL',
+    parser.add_argument('--query', type=str, default=default_search,
                         help='What do you want to search for?')
     parser.add_argument('--path', type=str, default=default_path,
                         help='Type the path you would like to store the pics in')
@@ -72,11 +74,11 @@ def main():
     for submission in search:
         URL = vars(submission)['url']
         name = vars(submission)['title']
-        if s.find(URL) != -1:
-            sys.stdout.write('Dupe found at: ', name)
+        if s.find(bytes(URL,'utf-8')) != -1:
+            sys.stdout.write('Dupe found at: ' + name)
         else:
             AlbumOrSingle(URL, name, path)
-            f.write(URL, ' :: ')
+            f.write(' '.join([URL, ':: ']))
     f.close()
     sys.stdout.write('Finished!')
     
