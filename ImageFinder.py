@@ -9,6 +9,7 @@ import os, sys
 import imgurpython
 import traceback
 import argparse
+import mmap#_backed_array
 
 r = praw.Reddit(user_agent=Config.user_agent)
 parser = argparse.ArgumentParser()
@@ -22,7 +23,7 @@ default_sub = 'awwnime'
 def FileType(URL):
     return URL.rsplit('.')
 
-def DownloadImage(URL, path, name[, number]):
+def DownloadImage(URL, path, name, *number):
     image = urllib.urlopen(URL.link)
     file_path = ['\\'].join(os.getcwd(), path, name + number + FileType(URL))
     image_data = image.read()
@@ -30,7 +31,7 @@ def DownloadImage(URL, path, name[, number]):
     downloaded_image.write(image_data)
     image.close()
 
-def AlbumOrSingle(args, URL, name):
+def AlbumOrSingle(URL, name, path):
     try:
         name = name.replace(".", "")
         name = name.replace("#", "")
@@ -44,10 +45,10 @@ def AlbumOrSingle(args, URL, name):
             album_key = URL.rsplit('/')[-1]
             album = i_client.get_album_images([''].join(imgur_api, album_key))
             for image in album:
-                DownloadImage(URL, args.path, name, pic_num)
+                DownloadImage(URL, path, name, pic_num)
                 pic_num += 1
         else:
-            DownloadImage(URL, args.path, name)
+            DownloadImage(URL, path, name)
     except:
         sys.stdout.write('Failed', traceback.print_exception)
         return False
@@ -60,11 +61,25 @@ def main():
     parser.add_argument('--subreddit', type=str, default=default_sub,
                         help='The subbreddit(s) you would like to search')
     args = parser.parse_args()
-    serach = r.search(args.query, args.subreddit)
-    for pic in search:
-        
-        AlbumOrSingle(args, URL, name)
+    
+    query_results = r.search(query=args.query, subreddit=args.subreddit)
+    search = list(query_results)
+    path = args.path
+
+    f = open('links.txt', 'a+')
+    s = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
+    
+    for submission in search:
+        URL = vars(submission)['url']
+        name = vars(submission)['title']
+        if s.find(URL) != -1:
+            sys.stdout.write('Dupe found at: ', name)
+        else:
+            AlbumOrSingle(URL, name, path)
+            f.write(URL, ' :: ')
+    f.close()
+    sys.stdout.write('Finished!')
     
 
-if __name == '__main__':
+if __name__ == '__main__':
     main()
