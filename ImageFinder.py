@@ -26,11 +26,16 @@ def FileType(URL):
 
 def DownloadImage(URL, path, name, *number):
     image = urllib.request.urlopen(URL)
-    file_path = '\\'.join(str(os.getcwd(), path, name + number + FileType(URL)))
+    file_name = ''.join((name, str(number), FileType(URL)[0]))
+    file_path = '\\'.join((os.getcwd(), path, file_name))
+    print(file_path)
     image_data = image.read()
-    downloaded_image = file(file_path, 'wb')
-    downloaded_image.write(image_data)
+    file = open()
+    #downloaded_image = file(file_path, 'wb')
+    #downloaded_image.write(image_data)
+    file.write(image_data, 'wb+')
     image.close()
+    file.close()
 
 def AlbumOrSingle(URL, name, path):
     try:
@@ -44,14 +49,14 @@ def AlbumOrSingle(URL, name, path):
         if '/a/' in URL: #add doujin folder support
             pic_num = 1
             album_key = URL.rsplit('/')[-1]
-            album = i_client.get_album_images([''].join(imgur_api, album_key))
+            album = i_client.get_album_images(''.join(imgur_api, album_key))
             for image in album:
-                DownloadImage(URL, path, name, pic_num)
+                DownloadImage(image, path, name, str(pic_num)) #image.link instead of URL
                 pic_num += 1
         else:
             DownloadImage(URL, path, name)
     except:
-        sys.stdout.write('Failed')
+        sys.stdout.write('Failed: ')
         traceback.print_exc()
         return False
 
@@ -74,8 +79,8 @@ def main():
     for submission in search:
         URL = vars(submission)['url']
         name = vars(submission)['title']
-        if s.find(bytes(URL,'utf-8')) != -1:
-            sys.stdout.write('Dupe found at: ' + name)
+        if s.find(bytes(URL,'utf-8')) == -1: #commented != to == for debug
+            sys.stdout.write(''.join(('Dupe found at: ', name, '\n')))
         else:
             AlbumOrSingle(URL, name, path)
             f.write(' '.join([URL, ':: ']))
