@@ -4,7 +4,7 @@
 
 import praw
 import urllib.request, shutil
-import Config
+import Config, DownloadImage
 import os, sys
 import imgurpython
 import traceback
@@ -21,18 +21,18 @@ default_path = '\\pics\\'
 default_sub = 'awwnime'
 default_search = 'kuroneko'
 
-def FileType(URL): #get image filetype
-    return ''.join(('.',URL.rsplit('.')[-1]))
-
-def DownloadImage(URL, path, name, number=''):
-    image = urllib.request.urlopen(URL)
-    file_name = ''.join((name, str(number), FileType(URL)))
-    file_path = '{}{}{}'.format(os.getcwd(), path, file_name) #I'm just trying different stuff here
-    print(name)
-    image_data = image.read()
-    with open(file_path, 'wb+') as file:
-        file.write(image_data)
-    image.close()
+##def FileType(URL): #get image filetype
+##    return ''.join(('.', URL.rsplit('.')[-1]))
+##
+##def DownloadImage(URL, path, name, number=''):
+##    image = urllib.request.urlopen(URL)
+##    file_name = ''.join((name, str(number), FileType(URL)))
+##    file_path = '{}{}{}'.format(os.getcwd(), path, file_name) #I'm just trying different stuff here
+##    print(name)
+##    image_data = image.read()
+##    with open(file_path, 'wb+') as file:
+##        file.write(image_data)
+##    image.close()
 
 def AlbumOrSingle(URL, name, path):
     try:
@@ -51,7 +51,7 @@ def AlbumOrSingle(URL, name, path):
             album_id = URL.rsplit('/a/')[-1]
             album = i_client.get_album_images(album_id) #>only asks for album id >I reply with entire link
             for picture in album:
-                DownloadImage(picture.link, path, name, str(pic_num)) #image.link instead of URL
+                DownloadImage.download(picture.link, path, name, str(pic_num)) #image.link instead of URL
                 pic_num += 1
         else:
             DownloadImage(URL, path, name)
