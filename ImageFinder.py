@@ -30,8 +30,7 @@ def DownloadImage(URL, path, name, number=''):
     file_path = '{}{}{}'.format(os.getcwd(), path, file_name) #I'm just trying different stuff here
     print(name)
     image_data = image.read()
-    with open(file_path, 'wb+') as file: #make the pics directory dumbo
-        #shutil.copyfileobj(image, file_path)
+    with open(file_path, 'wb+') as file:
         file.write(image_data)
     image.close()
 
@@ -49,10 +48,10 @@ def AlbumOrSingle(URL, name, path):
         name = name.replace(')', '')
         if '/a/' in URL: #add doujin folder support
             pic_num = 1
-            album_key = URL.rsplit('/a/')[-1]
-            album = i_client.get_album_images(''.join((imgur_api, album_key)))
-            for image in album:
-                DownloadImage(image.link, path, name, str(pic_num)) #image.link instead of URL
+            album_id = URL.rsplit('/a/')[-1]
+            album = i_client.get_album_images(album_id) #>only asks for album id >I reply with entire link
+            for picture in album:
+                DownloadImage(picture.link, path, name, str(pic_num)) #image.link instead of URL
                 pic_num += 1
         else:
             DownloadImage(URL, path, name)
@@ -73,6 +72,9 @@ def main():
     query_results = r.search(query=args.query, subreddit=args.subreddit)
     search = list(query_results)
     path = args.path
+
+    if not os.path.isdir(os.getcwd() + path):
+        os.mkdir(os.getcwd() + path)
 
     f = open('links.txt', 'a+')
     s = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
