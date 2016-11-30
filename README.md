@@ -3,6 +3,8 @@ grabs images from reddit using python
 
 This is an update of a script I had working in python 2.7, and since imgur decided that I need to use its api do do anything now I decided to update the whole script
 
+## NOTHING WORKS RIGHT NOW BECAUSE OF THE PRAW UPDATE
+
 todo:
 
 - add support for gui (easygui?)
