@@ -5,7 +5,7 @@ This is an update of a script I had working in python 2.7, and since imgur decid
 
 todo:
 
-- add support to use from command line
+- add support to use from command line (done)
 - add support for gui (easygui?)
 - make sure imgur albums actually work
 - add classes to clean up code
