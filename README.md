@@ -7,6 +7,9 @@ todo:
 
 - add support for gui (easygui?)
 - add support for downloading comics
+- add proper licensing
+- add a .gitignore
+- probably make a separate todo.md file
 
 features:
 
