@@ -13,8 +13,8 @@ features:
 - commandline functionality
 - works with imgur albums
 - stores previously downloaded URLs in order to prevent overwriting images
-- now with object oriented programming!
 - nsfw filter
+- now with object oriented programming!
 
 ## How can I use this program?
 
@@ -28,14 +28,14 @@ pip install [module_name]
 
 where [module_name] is replaced with the module you are downloading.
 
-Second, create a config.py file that contains your reddit and imgur api information. You can make a reddit app or access a current one [here](https://www.reddit.com/prefs/apps/ "Reddit App Info") to get your reddit api information and imgur [here](https://api.imgur.com/oauth2/addclient "Imgur Api Info"). An account at each site is required for the api info.
+Second, create a config.py file that contains your reddit and imgur api information. You can make a reddit app or access a current one [here](https://www.reddit.com/prefs/apps/ "Reddit App Info") and imgur api credentials can be obtained [here](https://api.imgur.com/oauth2/addclient "Imgur Api Info"). An account at each site is required for the api info.
 
 Thrid, this program currently only works through command line. To use the program open command line and type
 
 ```
-%PATH%\python imagefinder.py --query=[search] --subreddit=[subreddit] --path=[path] --nsfw_filter=[TRUE/FALSE]
+%PATH%\python imagefinder.py --query=[search] --subreddit=[subreddit] --path=[path] --nsfw_filter=[True/False]
 ```
 
-with %PATH% as the directory of the script, and the words in brackets with the specifications for your search. The variables can be assigned in any order. You can also choose to not assign some variables and they will default to values I have given them. You can change these values at the top of the main.py file. Once you hit enter the program will run, and the files will be downloaded to the given path.
+with %PATH% as the directory of the script, and the words in brackets with the specifications for your search. The variables can be assigned in any order. You can also choose to not assign some variables and they will default to values I have given them. For instance, the nsfw filter defaults to False, so you would not need to include it at all in order to download nsfw images. You can change these values at the top of the main.py file. Once you hit enter the program will run, and the files will be downloaded to the given path.
 
 That's it! Lastly, feel free to use this program wherever and however you would like, along with any modifications you would like to make. My only request is that you credit me if this program is used in any project or program that you make.
