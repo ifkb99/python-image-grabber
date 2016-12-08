@@ -16,7 +16,6 @@ features:
 - commandline functionality
 - works with imgur albums
 - stores previously downloaded URLs in order to prevent overwriting images
-- nsfw filter
 - now with object oriented programming!
 
 ## How can I use this program?
@@ -36,7 +35,7 @@ Second, create a config.py file that contains your reddit and imgur api informat
 Thrid, this program currently only works through command line. To use the program open command line and type
 
 ```
-%PATH%\python imagefinder.py --query=[search] --subreddit=[subreddit] --path=[path] --nsfw_filter=[True/False]
+%PATH%\python imagefinder.py --query=[search] --subreddit=[subreddit] --path=[path] 
 ```
 
 with %PATH% as the directory of the script, and the words in brackets with the specifications for your search. The variables can be assigned in any order. You can also choose to not assign some variables and they will default to values I have given them. For instance, the nsfw filter defaults to False, so you would not need to include it at all in order to download nsfw images. You can change these values at the top of the main.py file. Once you hit enter the program will run, and the files will be downloaded to the given path.
