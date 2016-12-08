@@ -6,7 +6,6 @@ import praw
 import config
 from url_mgr import AlbumOrSingle
 import os, sys
-# import imgurpython, urllib.request
 import argparse
 import mmap
 import traceback
@@ -14,6 +13,7 @@ import traceback
 r = praw.Reddit(user_agent=config.reddit_user_agent,
                 client_id=config.reddit_client_id,
                 client_secret=config.reddit_secret)
+
 parser = argparse.ArgumentParser()
 
 default_path = '\\pics\\'
