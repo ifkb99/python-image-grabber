@@ -1,5 +1,5 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
 
@@ -40,4 +40,5 @@ pip-delete-this-directory.txt
 # program specific files
 config.py
 .txt
-pics/
+**/pics/
+*.md
