@@ -3,14 +3,6 @@ grabs images from reddit using python
 
 This is an update of a script I had working in python 2.7, and since imgur decided that I need to use its api do do anything now I decided to update the whole script
 
-todo:
-
-- add support for gui (easygui?)
-- add support for downloading comics
-- add proper licensing
-- add a .gitignore
-- probably make a separate todo.md file
-
 features:
 
 - commandline functionality
