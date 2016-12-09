@@ -38,7 +38,7 @@ pip-delete-this-directory.txt
 .spyderproject
 
 # program specific files
-config.py
-.txt
-*/pics/
+image-grabber/config.py
+*.txt
+image-grabber/pics/
 *.md
